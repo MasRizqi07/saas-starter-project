@@ -12,9 +12,10 @@ interface AnimatedButtonProps {
   onClick?: () => void
   type?: 'button' | 'submit' | 'reset'
   disabled?: boolean
+  shimmer?: boolean
 }
 
-export function AnimatedButton({ children, className, variant = 'default', size = 'default', onClick, type = 'button', disabled = false }: AnimatedButtonProps) {
+export function AnimatedButton({ children, className, variant = 'default', size = 'default', onClick, type = 'button', disabled = false, shimmer = false }: AnimatedButtonProps) {
   return (
     <motion.div
       whileHover={{ scale: 1.02 }}
@@ -27,15 +28,28 @@ export function AnimatedButton({ children, className, variant = 'default', size 
         onClick={onClick}
         type={type}
         disabled={disabled}
-        className={className}
+        className={shimmer ? 'relative overflow-hidden' : className}
       >
-        {children}
+        {shimmer && (
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+            initial={{ x: '-100%' }}
+            animate={{ x: '100%' }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              repeatDelay: 1,
+              ease: 'linear',
+            }}
+          />
+        )}
+        <span className={shimmer ? 'relative z-10' : ''}>{children}</span>
       </Button>
     </motion.div>
   )
 }
 
-export function AnimatedButtonWithRipple({ children, className, variant = 'default', size = 'default', onClick, type = 'button', disabled = false }: AnimatedButtonProps) {
+export function AnimatedButtonWithRipple({ children, className, variant = 'default', size = 'default', onClick, type = 'button', disabled = false, shimmer = false }: AnimatedButtonProps) {
   return (
     <motion.div
       whileHover={{ scale: 1.02 }}
@@ -50,6 +64,19 @@ export function AnimatedButtonWithRipple({ children, className, variant = 'defau
         disabled={disabled}
         className={`relative overflow-hidden ${className}`}
       >
+        {shimmer && (
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+            initial={{ x: '-100%' }}
+            animate={{ x: '100%' }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              repeatDelay: 1,
+              ease: 'linear',
+            }}
+          />
+        )}
         <motion.span
           className="absolute inset-0 bg-white/20"
           initial={{ scale: 0, opacity: 0 }}

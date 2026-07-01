@@ -24,15 +24,15 @@ export function DashboardSidebar() {
   }
 
   return (
-    <aside className="w-64 border-r bg-card p-6 hidden md:block relative">
+    <aside className="w-64 border-r glass-nav p-6 hidden md:block relative">
       <motion.div 
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
         className="mb-8"
       >
-        <h1 className="text-2xl font-bold bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent">SaaS Starter</h1>
-        <p className="text-sm text-muted-foreground">Build faster</p>
+        <h1 className="text-2xl font-bold text-display">SaaS Foundry</h1>
+        <p className="text-sm text-muted-foreground">Enterprise-grade SaaS foundation</p>
       </motion.div>
       
       <nav className="space-y-2">
